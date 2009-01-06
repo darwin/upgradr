@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+  <Product Id="44386a7b-7093-4fdc-8b52-5f7e8b968964"
+           Name="Upgradr $(var.version)"
+           Language="1033"
+           Manufacturer="Antonin Hildebrand"
+           Version="$(var.version)"
+           UpgradeCode="3e4c3ec7-a32a-47a7-ad63-9c5464d0bc63">
+
+    <Package Keywords="Installer"
+             Description="Upgradr IE Addon Installer"
+             InstallerVersion="200"
+             Compressed="yes" />
+
+    <Property Id="UpgradrHelperbar_CLSID" Value="{0A839FF4-F7CA-41E0-8EA1-F5E2913139DD}" />
+    <Property Id="UpgradrToolbar_CLSID" Value="{551012C5-352D-48D9-9E29-E90F293D19F5}" />
+    <Property Id="UpgradrBHO_CLSID" Value="{8774C0B1-6697-43B8-8D0E-6179F48838BB}" />
+    <Property Id="UpgradrShell_CLSID" Value="{E35AC869-7A91-4CCE-A5E0-C5E96998DC48}" />
+    <Property Id="UpgradrScriptSite_CLSID" Value="{95707C49-8262-4DDF-B82D-66C656D84AC3}" />
+
+    <Upgrade Id="3e4c3ec7-a32a-47a7-ad63-9c5464d0bc63">
+      <!-- upgrade is flagged if current-install is newer than or equal to package - TODO: should make a dialog appear asking user to confirm downgrade.  -->
+      <UpgradeVersion Property="NEWERVERSIONDETECTED" Minimum="$(var.version)" OnlyDetect="yes" />
+      <!-- flag is set if the install will trigger an upgrade of an existing install -->
+      <UpgradeVersion Property="PREVIOUSVERSIONSINSTALLED" Maximum="$(var.version)" IncludeMaximum="no" />
+    </Upgrade>
+
+    <!-- Launch Condition related properties ................................................................................. -->
+    <Property Id="VERSIONIE">
+      <RegistrySearch Id="RegSearchIeVersion" Root="HKLM" Key="SOFTWARE\Microsoft\Internet Explorer" Name="Version" Type="raw" Win64="no"/>
+    </Property>
+    <Condition Message="[ProductName] needs at least Internet Explorer 5">NOT ((VERSIONIE&lt;&lt;"1") OR (VERSIONIE&lt;&lt;"2") OR (VERSIONIE&lt;&lt;"3") OR (VERSIONIE&lt;&lt;"4"))</Condition>
+
+    <Property Id="ShowChangelogCheck">1</Property>
+
+    <Condition Message="[ProductName] requires a Windows NT based OS (Windows 2000 or later, specifically).">VersionNT</Condition>
+    <Condition Message="[ProductName] requires Windows 2000 or later."><![CDATA[VersionNT >= 500]]></Condition>
+    <Condition Message="You must have Admin priviledges to install [ProductName].">((""&gt;&lt;VERSIONMFC) AND (""&gt;&lt;VERSIONMFC1)) OR (Privileged)</Condition>
+
+    <!-- Show/Don't-show changelog related properties and custom actions ..................................................... -->
+    <Property Id="TEXTEDITOR">
+      <DirectorySearch Id="FileSearchTextEditorExe" Path="[WindowsFolder]">
+        <FileSearch Id="FileSearchTextEditorExe" Name="notepad.exe"/>
+      </DirectorySearch>
+    </Property>
+    <CustomAction Id="Set_ShowChangelog" Property="ShowChangelog" Value="Yes" Return="check" />
+    <CustomAction Id="ShowChangelogAction" Property="TEXTEDITOR" ExeCommand="[INSTALLDIR]changelog.txt" Return="asyncNoWait" />
+
+    <!-- Execute Sequencing ................................................................................................. -->
+    <AdminExecuteSequence />
+    <InstallExecuteSequence>
+      <!-- AppSearch must be done before RemoveExistingProducts and before FindRelatedProducts -->
+      <AppSearch Sequence="1"></AppSearch>
+      <LaunchConditions After="AppSearch"/>
+      <RemoveExistingProducts After="InstallValidate"><![CDATA[PREVIOUSVERSIONSINSTALLED OR (NOT NEWERVERSIONDETECTED)]]></RemoveExistingProducts>
+      <!--<Custom Action="CleanupRegistry" After="RemoveExistingProducts">PREVIOUSVERSIONSINSTALLED</Custom>-->
+    </InstallExecuteSequence>
+
+    <Media Id="1" Cabinet="Upgradr.cab" EmbedCab="yes" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Component Id="DeleteKeys" Guid="f7938ed4-84e6-4866-a569-d7d543501244">
+        <RemoveRegistryValue Root="HKLM" Key="Software\Microsoft\Windows\CurrentVersion\Ext\Settings\[UpgradrHelperbar_CLSID]" Name="Flags" />
+        <RemoveRegistryValue Root="HKLM" Key="Software\Microsoft\Windows\CurrentVersion\Ext\Settings\[UpgradrHelperbar_CLSID]" Name="Version" />
+        <RemoveRegistryValue Root="HKLM" Key="Software\Microsoft\Windows\CurrentVersion\Ext\Settings\[UpgradrToolbar_CLSID]" Name="Flags" />
+        <RemoveRegistryValue Root="HKLM" Key="Software\Microsoft\Windows\CurrentVersion\Ext\Settings\[UpgradrToolbar_CLSID]" Name="Version" />
+      </Component>
+
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLLOCATION" Name="Upgradr">
+
+          <!-- tuto sekci je nutne updatovat pri kazde zmene self registrace v rgs !!! => pouzij utitlity heat.exe -->
+          <!-- IEAddonCore (Upgradr.dll) -->
+          <Component Id="IEAddonCore" Guid="b05f0bfe-8eab-4703-bac0-98daf35d41fa">
+            <File Id="Upgradr.dll" Name="Upgradr.dll" DiskId="1" Vital="yes" KeyPath="yes" Source="Upgradr.dll">
+              <TypeLib Id="{753A4046-6863-42AC-9C85-24468A48972C}" Description="Upgradr 1.0 Type Library" Language="0" MajorVersion="1" MinorVersion="0">
+                <AppId Description="Upgradr" Id="{05B6ED58-9CB1-4270-82F7-30CCD8C4F8FE}">
+                  <Class Id="{0A839FF4-F7CA-41E0-8EA1-F5E2913139DD}" Context="InprocServer32" Description="Upgradr Helperbar" ThreadingModel="apartment" Programmable="yes">
+                    <ProgId Id="Upgradr.UpgradrHelperbar.1" Description="Upgradr Helperbar">
+                      <ProgId Id="Upgradr.UpgradrHelperbar" Description="Upgradr Helperbar" />
+                    </ProgId>
+                  </Class>
+                  <Class Id="{551012C5-352D-48D9-9E29-E90F293D19F5}" Context="InprocServer32" Description="Upgradr Toolbar" ThreadingModel="apartment" Programmable="yes">
+                    <ProgId Id="Upgradr.UpgradrToolbar.1" Description="Upgradr Toolbar">
+                      <ProgId Id="Upgradr.UpgradrToolbar" Description="Upgradr Toolbar" />
+                    </ProgId>
+                  </Class>
+                  <Class Id="{8774C0B1-6697-43B8-8D0E-6179F48838BB}" Context="InprocServer32" Description="Upgradr BHO" ThreadingModel="apartment" Programmable="yes">
+                    <ProgId Id="Upgradr.UpgradrBHO.1" Description="Upgradr BHO">
+                      <ProgId Id="Upgradr.UpgradrBHO" Description="Upgradr BHO" />
+                    </ProgId>
+                  </Class>
+                  <Class Id="{E35AC869-7A91-4CCE-A5E0-C5E96998DC48}" Context="InprocServer32" Description="Upgradr Shell" ThreadingModel="apartment" Programmable="yes">
+                    <ProgId Id="Upgradr.UpgradrShell.1" Description="Upgradr Shell">
+                      <ProgId Id="Upgradr.UpgradrShell" Description="Upgradr Shell" />
+                    </ProgId>
+                  </Class>
+                  <Class Id="{95707C49-8262-4DDF-B82D-66C656D84AC3}" Context="InprocServer32" Description="Upgradr Script Site" ThreadingModel="apartment" Programmable="yes">
+                    <ProgId Id="Upgradr.UpgradrScriptSite.1" Description="Upgradr Script Site">
+                      <ProgId Id="Upgradr.UpgradrScriptSite" Description="Upgradr Script Site" />
+                    </ProgId>
+                  </Class>
+                </AppId>
+                <Interface Id="{36B7E346-E901-4EE9-B888-696D4C0BBF86}" Name="IUpgradrToolbar" ProxyStubClassId="{00020424-0000-0000-C000-000000000046}" ProxyStubClassId32="{00020424-0000-0000-C000-000000000046}" />
+                <Interface Id="{50AE34F6-670A-4807-B11A-8CA4C9136B1D}" Name="IUpgradrBHO" ProxyStubClassId="{00020424-0000-0000-C000-000000000046}" ProxyStubClassId32="{00020424-0000-0000-C000-000000000046}" />
+                <Interface Id="{9619697A-19FE-48D0-A96C-0E002187999F}" Name="IUpgradrShell" ProxyStubClassId="{00020424-0000-0000-C000-000000000046}" ProxyStubClassId32="{00020424-0000-0000-C000-000000000046}" />
+                <Interface Id="{A8FE27A6-2251-4A4B-8EAF-E5E2ABA4DC83}" Name="IUpgradrHelperbar" ProxyStubClassId="{00020424-0000-0000-C000-000000000046}" ProxyStubClassId32="{00020424-0000-0000-C000-000000000046}" />
+                <Interface Id="{005A13B2-9BFE-489C-AA5D-89CE42D8801B}" Name="IUpgradrScriptSite" ProxyStubClassId="{00020424-0000-0000-C000-000000000046}" ProxyStubClassId32="{00020424-0000-0000-C000-000000000046}" />
+              </TypeLib>
+            </File>
+            <RegistryValue Root="HKCR" Key="AppID\Upgradr.DLL" Name="AppID" Value="{05B6ED58-9CB1-4270-82F7-30CCD8C4F8FE}" Type="string" Action="write" />
+            <RegistryValue Root="HKCR" Key="CLSID\[UpgradrHelperbar_CLSID]" Name="MenuText" Value="Upgradr Helperbar" Type="string" Action="write" />
+            <RegistryValue Root="HKCR" Key="CLSID\[UpgradrHelperbar_CLSID]" Name="HelpText" Value="Opens Upgradr Helperbar" Type="string" Action="write" />
+            <RegistryKey   Root="HKCR" Key="CLSID\[UpgradrHelperbar_CLSID]\Implemented Categories\{00021494-0000-0000-C000-000000000046}" Action="createAndRemoveOnUninstall" />
+            <RegistryValue Root="HKCR" Key="TypeLib\{753A4046-6863-42AC-9C85-24468A48972C}\1.0\HELPDIR" Value="" Type="string" Action="write" />
+            <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\Internet Explorer\Explorer Bars\[UpgradrHelperbar_CLSID]" Value="Upgradr Helperbar" Type="string" Action="write" />
+            <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\Internet Explorer\Explorer Bars\[UpgradrHelperbar_CLSID]" Name="BarSize" Value="4100000000000000" Type="binary" Action="write" />
+            <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\Internet Explorer\Toolbar" Name="[UpgradrToolbar_CLSID]" Value="Upgradr Toolbar" Type="string" Action="write" />
+            <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Browser Helper Objects\[UpgradrBHO_CLSID]" Value="Upgradr BHO" Type="string" Action="write" />
+            <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Browser Helper Objects\[UpgradrBHO_CLSID]" Name="NoExplorer" Value="1" Type="integer" Action="write" />
+
+            <RemoveRegistryKey Root="HKCR" Action="removeOnInstall" Key="Component Categories\{00021493-0000-0000-C000-000000000046}\Enum" />
+            <RemoveRegistryKey Root="HKCR" Action="removeOnInstall" Key="Component Categories\{00021494-0000-0000-C000-000000000046}\Enum" />
+            <RemoveRegistryKey Root="HKCU" Action="removeOnInstall" Key="Software\Microsoft\Windows\CurrentVersion\Explorer\Discardable\PostSetup\Component Categories\{00021493-0000-0000-C000-000000000046}\Enum"/>
+            <RemoveRegistryKey Root="HKCU" Action="removeOnInstall" Key="Software\Microsoft\Windows\CurrentVersion\Explorer\Discardable\PostSetup\Component Categories\{00021494-0000-0000-C000-000000000046}\Enum"/>
+          </Component>
+
+          <!-- IEAddonFiles (support files) -->
+          <Component Id="IEAddonFiles" Guid="ce797af1-0527-4c85-8e28-62257fe3bd5f">
+            <File Id="Manual" Name="Manual.pdf" DiskId="1" Source="InstallFiles\Manual.pdf" Vital="yes" />
+            <File Id="License" Name="License.txt" DiskId="1" Source="InstallFiles\License.txt" Vital="yes" />
+          </Component>
+
+          <!-- BugTrap (BugTrapU.dll) -->
+          <Component Id="BugTrap" Guid="b36ac6ca-a455-4a11-9650-d0ee74dd2bbb">
+            <File Id="BugTrap" Name="BugTrapU.dll" DiskId="1" Source="InstallFiles\BugTrapU.dll" Vital="yes" />
+          </Component>
+
+          <!-- DbgHelp (DbgHelp.dll) -->
+          <Component Id="DbgHelp" Guid="817edd52-0bf9-46fb-87ff-907c297c83fa">
+            <File Id="DbgHelp" Name="DbgHelp.dll" DiskId="1" Source="InstallFiles\DbgHelp.dll" Vital="yes" />
+          </Component>
+          
+          <!-- UserScripts (UserScripts) -->
+          <Directory Id="UserScripts" Name="UserScripts">
+            <Component Id="UserScripts" Guid="117edd52-0bf9-46aa-17f6-902c2ddc83fa">
+              <File Id="EventHandler" Name="EventHandler.js" DiskId="1" Source="InstallFiles\UserScripts\EventHandler.js" Vital="yes" />
+              <File Id="GMTest" Name="GMTest.js" DiskId="1" Source="InstallFiles\UserScripts\GMTest.js" Vital="yes" />
+              <File Id="LogTest" Name="LogTest.js" DiskId="1" Source="InstallFiles\UserScripts\LogTest.js" Vital="yes" />
+              <File Id="PageMarker" Name="PageMarker.js" DiskId="1" Source="InstallFiles\UserScripts\PageMarker.js" Vital="yes" />
+              <File Id="SnapshotsForLinks" Name="SnapshotsForLinks.ieuser.js" DiskId="1" Source="InstallFiles\UserScripts\SnapshotsForLinks.ieuser.js" Vital="yes" />
+              <File Id="AllInOneLightbox" Name="AllInOneLightbox.ieuser.js" DiskId="1" Source="InstallFiles\UserScripts\AllInOneLightbox.ieuser.js" Vital="yes" />
+            </Component>
+          </Directory>
+
+          <!-- SystemScripts (SystemScripts) -->
+          <Directory Id="SystemScripts" Name="SystemScripts">
+            <Component Id="SystemScripts" Guid="aa71d112-abf9-fba1-18f6-992c21da81fb">
+              <File Id="MonkeyAPI" Name="MonkeyAPI.js" DiskId="1" Source="InstallFiles\SystemScripts\MonkeyAPI.js" Vital="yes" />
+            </Component>
+          </Directory>
+
+          <!-- Settings (registry) -->
+          <Component Id="Settings" Guid="f16ac6bb-a125-4a11-9fe0-dabe741d223b">
+            <RegistryKey Root="HKCU" Key="Software\Upgradr" Action="createAndRemoveOnUninstall" />
+            <RegistryKey Root="HKCU" Key="Software\Upgradr\Settings" Action="create" />
+            <RegistryValue Root="HKCU" Key="Software\Upgradr\Settings" Name="DatabasePath" Value="[INSTALLLOCATION]Upgradr.db3" Type="string" Action="write" />
+            <RegistryValue Root="HKCU" Key="Software\Upgradr\Settings" Name="SystemScriptsDir" Value="[INSTALLLOCATION]SystemScripts" Type="string" Action="write" />
+            <RegistryValue Root="HKCU" Key="Software\Upgradr\Settings" Name="UserScriptsDir" Value="[INSTALLLOCATION]UserScripts" Type="string" Action="write" />
+          </Component>
+
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Feature Id="Addon"
+             Title="Internet Explorer Addon"
+             Absent="disallow"
+             Level="1"
+             Display="expand"
+             Description="Core part consists of Internet Explorer Addon binary and some support files." 
+             ConfigurableDirectory="INSTALLLOCATION" >
+      <ComponentRef Id="IEAddonCore" />
+      <ComponentRef Id="IEAddonFiles" />
+      <ComponentRef Id="DeleteKeys" />
+      <ComponentRef Id="SystemScripts" />
+      <ComponentRef Id="Settings" />
+    </Feature>
+
+    <Feature Id="BugTrap"
+             Title="Crash Reporting"
+             Level="1"
+             Display="expand"
+             Description="Library needed for possible crash reporting to authors of the software." 
+             ConfigurableDirectory="INSTALLLOCATION">
+      <ComponentRef Id="BugTrap" />
+      <ComponentRef Id="DbgHelp" />
+    </Feature>
+
+    <Feature Id="UserScripts"
+             Title="Basic User Scripts"
+             Level="1"
+             Display="expand"
+             Description="This feature will install collection basic user scripts." 
+             ConfigurableDirectory="INSTALLLOCATION">
+      <ComponentRef Id="UserScripts" />
+    </Feature>
+
+    <UIRef Id="WixUI_Mondo" />
+    <UIRef Id="WixUI_ErrorProgressText" />
+
+    <Property Id='ARPCONTACT'>info@upgradr.com</Property>
+    <Property Id='ARPHELPLINK'>http://upgradr.com/help</Property>
+    <Property Id='ARPURLINFOABOUT'>http://upgradr.com/about</Property>
+    <Property Id='ARPURLUPDATEINFO'>http://upgradr.com/update</Property>
+    <Property Id='ARPSIZE'>800</Property>
+    <Property Id='ARPPRODUCTICON'>UpgradrIcon</Property>
+    <Icon Id="UpgradrIcon" SourceFile="Upgradr.dll" />
+  </Product>
+</Wix>

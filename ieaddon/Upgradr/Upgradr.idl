@@ -1,0 +1,242 @@
+// Upgradr.idl : IDL source for Upgradr
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (Upgradr.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+import "dispex.idl"; // this is important to support DispatchEx interface
+import "activdbg.idl"; // this is needed for IDebugDocumentHelper agregation
+
+[
+	object,
+	uuid(50AE34F6-670A-4807-B11A-8CA4C9136B1D),
+	dual,
+	nonextensible,
+	helpstring("IUpgradrBHO Interface"),
+	pointer_default(unique)
+]
+interface IUpgradrBHO : IDispatch{
+};
+[
+	object,
+	uuid(36B7E346-E901-4EE9-B888-696D4C0BBF86),
+	dual,
+	nonextensible,
+	helpstring("IUpgradrToolbar Interface"),
+	pointer_default(unique)
+]
+interface IUpgradrToolbar : IDispatch{
+};
+[
+	object,
+	uuid(A8FE27A6-2251-4A4B-8EAF-E5E2ABA4DC83),
+	dual,
+	nonextensible,
+	helpstring("IUpgradrHelperbar Interface"),
+	pointer_default(unique)
+]
+interface IUpgradrHelperbar : IDispatch{
+};
+[
+	object,
+	uuid(9619697A-19FE-48D0-A96C-0E002187999F),
+	dual,
+	nonextensible,
+	helpstring("IUpgradrShell Interface"),
+	pointer_default(unique)
+]
+// we need IUpgradrShell to provide IDispatchEx interface
+interface IUpgradrShell : IDispatchEx {
+	[id(1), helpstring("method Log")] HRESULT Log([in] BSTR message);
+	[id(2), helpstring("method GetValue")] HRESULT GetValue([in] BSTR key, [out, retval] BSTR* result);
+	[id(3), helpstring("method SetValue")] HRESULT SetValue([in] BSTR key, [in] BSTR value);
+	[id(4), helpstring("method HasValue")] HRESULT HasValue([in] BSTR key, [out, retval] VARIANT_BOOL* result);
+};
+[
+	object,
+	uuid(005A13B2-9BFE-489C-AA5D-89CE42D8801B),
+	dual,
+	nonextensible,
+	helpstring("IUpgradrScriptSite Interface"),
+	pointer_default(unique)
+]
+interface IUpgradrScriptSite : IDispatch{
+};
+[
+	object,
+	uuid(E8BB3B0B-37E2-4BA2-8F57-F05C3CE23F51),
+	dual,
+	nonextensible,
+	helpstring("IUpgradrScriptEngine Interface"),
+	pointer_default(unique)
+]
+interface IUpgradrScriptEngine : IDispatch{
+	[id(1), helpstring("method SetFrameId")] HRESULT SetFrameId([in] LONG id);
+	[id(2), helpstring("method GetFrameId")] HRESULT GetFrameId([out,retval] LONG* id);
+	[id(3), helpstring("method GetURL")] HRESULT GetURL([out,retval] BSTR* url);
+};
+[
+	object,
+	uuid(FAB247E0-8A31-11DB-B606-0800200C9A66),
+	nonextensible,
+	helpstring("IUpgradrScriptService Interface"),
+	pointer_default(unique)
+]
+interface IUpgradrScriptService : IUnknown {
+	[id(1), helpstring("method GetScriptInstanceId")] HRESULT GetScriptInstanceId([out,retval] LONG* id);
+};
+//////////////////////////////////////////////////////////
+[
+	object,
+	uuid(9F18BCC4-BE8F-42E9-B18A-3458EBB3D4A8),
+	dual,
+	nonextensible,
+	helpstring("IUpgradrDebugDocumentHelper Interface"),
+	pointer_default(unique)
+]
+interface IUpgradrDebugDocumentHelper : IDispatch{
+};
+[
+	object,
+	uuid(D2BEDEE3-489D-40D5-9942-351E0DEC4420),
+	dual,
+	nonextensible,
+	helpstring("IUpgradrDebugDocumentContext Interface"),
+	pointer_default(unique)
+]
+interface IUpgradrDebugDocumentContext : IDispatch{
+};
+[
+	object,
+	uuid(6A7D3229-FD4F-4B90-B853-83FAED958558),
+	dual,
+	nonextensible,
+	helpstring("IUpgradrEnumDebugCodeContexts Interface"),
+	pointer_default(unique)
+]
+interface IUpgradrEnumDebugCodeContexts : IDispatch{
+};
+[
+	object,
+	uuid(4928BA9B-2E22-401E-88D0-EF7C48C22F30),
+	dual,
+	nonextensible,
+	helpstring("IUpgradrDebugCodeContext Interface"),
+	pointer_default(unique)
+]
+interface IUpgradrDebugCodeContext : IDispatch{
+};
+[
+	object,
+	uuid(4ED4D726-6E8A-4C95-AD35-0D71FEB950F8),
+	dual,
+	nonextensible,
+	helpstring("IUpgradrScriptDebugger Interface"),
+	pointer_default(unique)
+]
+interface IUpgradrScriptDebugger : IDispatch{
+};
+[
+	uuid(753A4046-6863-42AC-9C85-24468A48972C),
+	version(1.0),
+	helpstring("Upgradr 1.0 Type Library")
+]
+library UpgradrLib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(8774C0B1-6697-43B8-8D0E-6179F48838BB),
+		helpstring("Upgradr Core")
+	]
+	coclass UpgradrBHO
+	{
+		[default] interface IUpgradrBHO;
+	};
+	[
+		uuid(551012C5-352D-48D9-9E29-E90F293D19F5),
+		helpstring("Upgradr Toolbar")
+	]
+	coclass UpgradrToolbar
+	{
+		[default] interface IUpgradrToolbar;
+	};
+	[
+		uuid(0A839FF4-F7CA-41E0-8EA1-F5E2913139DD),
+		helpstring("Upgradr Helperbar")
+	]
+	coclass UpgradrHelperbar
+	{
+		[default] interface IUpgradrHelperbar;
+	};
+	[
+		uuid(E35AC869-7A91-4CCE-A5E0-C5E96998DC48),
+		helpstring("UpgradrShell Class")
+	]
+	coclass UpgradrShell
+	{
+		[default] interface IUpgradrShell;
+	};
+	[
+		uuid(95707C49-8262-4DDF-B82D-66C656D84AC3),
+		helpstring("UpgradrScriptSite Class")
+	]
+	coclass UpgradrScriptSite
+	{
+		[default] interface IUpgradrScriptSite;
+		interface IUpgradrScriptService;
+	};
+	[
+		uuid(E6B6B1A2-558B-4B66-9D1F-3F95AEA6FC4A),
+		helpstring("UpgradrScriptEngine Class")
+	]
+	coclass UpgradrScriptEngine
+	{
+		[default] interface IUpgradrScriptEngine;
+	};
+	[
+		uuid(2CE25E32-978F-48D5-94F0-CBDC42D3B22F),
+		helpstring("UpgradrDebugDocumentHelper Class")
+	]
+	coclass UpgradrDebugDocumentHelper
+	{
+		[default] interface IUpgradrDebugDocumentHelper;
+		interface IDebugDocumentHelper;
+	};
+	[
+		uuid(7A4F7997-3CD7-4598-BA9E-66E5FA1E57FF),
+		helpstring("UpgradrDebugDocumentContext Class")
+	]
+	coclass UpgradrDebugDocumentContext
+	{
+		[default] interface IUpgradrDebugDocumentContext;
+		interface IDebugDocumentContext;
+	};
+	[
+		uuid(C26C171A-CA2C-4BE5-B43A-A70E9B296334),
+		helpstring("UpgradrEnumDebugCodeContexts Class")
+	]
+	coclass UpgradrEnumDebugCodeContexts
+	{
+		[default] interface IUpgradrEnumDebugCodeContexts;
+		interface IEnumDebugCodeContexts;
+	};
+	[
+		uuid(1E180D08-3F9E-4957-8FA1-A496CF8166D6),
+		helpstring("UpgradrDebugCodeContext Class")
+	]
+	coclass UpgradrDebugCodeContext
+	{
+		[default] interface IUpgradrDebugCodeContext;
+		interface IDebugCodeContext;
+	};
+	[
+		uuid(62526B3D-25FB-412C-9696-8A25B59C4F36),
+		helpstring("UpgradrScriptDebugger Class")
+	]
+	coclass UpgradrScriptDebugger
+	{
+		[default] interface IUpgradrScriptDebugger;
+	};
+};

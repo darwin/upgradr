@@ -1,0 +1,27 @@
+HKCR
+{
+	Upgradr.UpgradrScriptDebugg.1 = s 'UpgradrScriptDebugger Class'
+	{
+		CLSID = s '{62526B3D-25FB-412C-9696-8A25B59C4F36}'
+	}
+	Upgradr.UpgradrScriptDebugger = s 'UpgradrScriptDebugger Class'
+	{
+		CLSID = s '{62526B3D-25FB-412C-9696-8A25B59C4F36}'
+		CurVer = s 'Upgradr.UpgradrScriptDebugg.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {62526B3D-25FB-412C-9696-8A25B59C4F36} = s 'UpgradrScriptDebugger Class'
+		{
+			ProgID = s 'Upgradr.UpgradrScriptDebugg.1'
+			VersionIndependentProgID = s 'Upgradr.UpgradrScriptDebugger'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			val AppID = s '%APPID%'
+			'TypeLib' = s '{753A4046-6863-42AC-9C85-24468A48972C}'
+		}
+	}
+}

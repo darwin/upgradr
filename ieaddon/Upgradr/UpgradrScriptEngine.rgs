@@ -1,0 +1,27 @@
+HKCR
+{
+	Upgradr.UpgradrScriptEngine.1 = s 'UpgradrScriptEngine Class'
+	{
+		CLSID = s '{E6B6B1A2-558B-4B66-9D1F-3F95AEA6FC4A}'
+	}
+	Upgradr.UpgradrScriptEngine = s 'UpgradrScriptEngine Class'
+	{
+		CLSID = s '{E6B6B1A2-558B-4B66-9D1F-3F95AEA6FC4A}'
+		CurVer = s 'Upgradr.UpgradrScriptEngine.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {E6B6B1A2-558B-4B66-9D1F-3F95AEA6FC4A} = s 'UpgradrScriptEngine Class'
+		{
+			ProgID = s 'Upgradr.UpgradrScriptEngine.1'
+			VersionIndependentProgID = s 'Upgradr.UpgradrScriptEngine'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			val AppID = s '%APPID%'
+			'TypeLib' = s '{753A4046-6863-42AC-9C85-24468A48972C}'
+		}
+	}
+}

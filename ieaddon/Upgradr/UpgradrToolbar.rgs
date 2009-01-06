@@ -1,0 +1,27 @@
+HKCR
+{
+	Upgradr.UpgradrToolbar.1 = s 'Upgradr Toolbar'
+	{
+		CLSID = s '{551012C5-352D-48D9-9E29-E90F293D19F5}'
+	}
+	Upgradr.UpgradrToolbar = s 'Upgradr Toolbar'
+	{
+		CLSID = s '{551012C5-352D-48D9-9E29-E90F293D19F5}'
+		CurVer = s 'Upgradr.UpgradrToolbar.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {551012C5-352D-48D9-9E29-E90F293D19F5} = s 'Upgradr Toolbar'
+		{
+			ProgID = s 'Upgradr.UpgradrToolbar.1'
+			VersionIndependentProgID = s 'Upgradr.UpgradrToolbar'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			val AppID = s '%APPID%'
+			'TypeLib' = s '{753A4046-6863-42AC-9C85-24468A48972C}'
+		}
+	}
+}

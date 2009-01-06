@@ -1,0 +1,453 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "winres.h"
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Neutral resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NEU)
+#ifdef _WIN32
+LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
+#pragma code_page(1250)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_ACCELERATOR1 ACCELERATORS 
+BEGIN
+    "N",            ID_ACCELERATOR_SEARCH_NEXT, VIRTKEY, ALT, NOINVERT
+    "P",            ID_ACCELERATOR_SEARCH_PREV, VIRTKEY, ALT, NOINVERT
+    "M",            ID_ACCELERATOR_MATCH_CASE, VIRTKEY, ALT, NOINVERT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_TOOLMENU MENU 
+BEGIN
+    POPUP "PopupMenu"
+    BEGIN
+        MENUITEM "Options ...",                 ID_POPUPMENU_OPTIONS
+        MENUITEM "Library ...",                 ID_POPUPMENU_UPGRADRLIBRARY
+        MENUITEM SEPARATOR
+        MENUITEM "Visit upgradr.net",           ID_POPUPMENU_VISITSITE
+        MENUITEM "Check for updates",           ID_POPUPMENU_CHECKFORUPDATES
+        MENUITEM SEPARATOR
+        MENUITEM "Test Dialog",                 ID_POPUPMENU_TESTDIALOG
+        MENUITEM "Generate crash !",            ID_POPUPMENU_GENERATECRASH
+        MENUITEM "About",                       ID_POPUPMENU_ABOUT
+    END
+END
+
+IDR_DISABLEMENU MENU 
+BEGIN
+    POPUP "DisableMenu"
+    BEGIN
+        MENUITEM SEPARATOR
+        MENUITEM "Disable All",                 ID_DISABLEMENU_ALL
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_TOOLBARMASK         BITMAP                  "res\\toolbarmask.bmp"
+IDB_TOOLBAR             BITMAP                  "res\\toolbar.bmp"
+IDB_ABOUTBOX            BITMAP                  "res\\aboutbox.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_EMPTY_DIALOG DIALOGEX 0, 0, 186, 95
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+END
+
+#endif    // Neutral resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// Czech resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CSY)
+#ifdef _WIN32
+LANGUAGE LANG_CZECH, SUBLANG_DEFAULT
+#pragma code_page(1250)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 200, 185
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About Upgradr"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         208,IDC_STATIC,"Static",SS_BITMAP,0,0,200,185
+    DEFPUSHBUTTON   "OK",IDOK,144,166,50,14,BS_FLAT
+    LTEXT           "Version:",IDC_STATIC,5,71,27,8
+    LTEXT           "0.1.2003",IDC_VERSION,33,71,30,8
+    LTEXT           "Product ID:",IDC_STATIC,5,80,38,8
+    LTEXT           "XXX",IDC_PRODUCTID,44,80,149,8
+    LTEXT           "www.upgradr.com",IDC_HOMEPAGE,115,71,80,8
+    LTEXT           "support@upgradr.com",IDC_SUPPORT,102,90,93,8
+    LTEXT           "Credits ..",IDC_CREDITS,5,103,190,61
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// RT_MANIFEST
+//
+
+2                       RT_MANIFEST             "res\\Upgradr.manifest"
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""winres.h""\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "1 TYPELIB ""Upgradr.tlb""\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 0, 1, 93, 105
+ PRODUCTVERSION 0, 1, 93, 105
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904e4"
+        BEGIN
+            VALUE "CompanyName", "Antonin Hildebrand"
+            VALUE "FileDescription", "Upgradr IE addon"
+            VALUE "FileVersion", "0, 1, 93, 105\0"
+            VALUE "InternalName", "Upgradr.dll"
+            VALUE "LegalCopyright", "© 2006-2007 Antonin Hildebrand"
+            VALUE "OriginalFilename", "Upgradr.dll"
+            VALUE "ProductName", "Upgradr"
+            VALUE "ProductVersion", "0, 1, 93, 105\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1252
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// REGISTRY
+//
+
+IDR_UPGRADR             REGISTRY                "Upgradr.rgs"
+IDR_UPGRADRBHO          REGISTRY                "UpgradrBHO.rgs"
+IDR_UPGRADRTOOLBAR      REGISTRY                "UpgradrToolbar.rgs"
+IDR_UPGRADRHELPERBAR    REGISTRY                "UpgradrHelperbar.rgs"
+IDR_UPGRADRSHELL        REGISTRY                "UpgradrShell.rgs"
+IDR_UPGRADRSCRIPTSITE   REGISTRY                "UpgradrScriptSite.rgs"
+IDR_UPGRADRSCRIPTENGINE REGISTRY                "UpgradrScriptEngine.rgs"
+IDR_UPGRADRDEBUGDOCUMENTHELPER REGISTRY                "UpgradrDebugDocumentHelper.rgs"
+IDR_UPGRADRDEBUGDOCUMENTCONTEXT REGISTRY                "UpgradrDebugDocumentContext.rgs"
+IDR_UPGRADRENUMDEBUGCODECONTEXTS REGISTRY                "UpgradrEnumDebugCodeContexts.rgs"
+IDR_UPGRADRDEBUGCODECONTEXT REGISTRY                "UpgradrDebugCodeContext.rgs"
+IDR_UPGRADRSCRIPTDEBUGGER REGISTRY                "UpgradrScriptDebugger.rgs"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 193
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 178
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_ABOUTBOX            ICON                    "res\\about.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDS_PROJNAME            "Upgradr"
+    IDS_ABOUT               "Upgradr Application"
+    IDS_TOOLBAR_NAME        "Upgradr Error"
+    IDS_ERROR_NOPARENTWINDOW "No parent window was specified for the toolbar"
+    IDS_ERROR_BASEMESSAGE   "An error has occurred in ""Upgradr"": "
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_ERROR_ADDBITMAP     "Unable to add images to the toolbar."
+    IDS_HELPERBAR_CAPTION   "Upgradr Helper Tools"
+END
+
+STRINGTABLE 
+BEGIN
+    IDOK                    "OK"
+    IDCANCEL                "Cancel"
+    IDRETRY                 "Retry"
+    IDYES                   "Yes"
+    IDNO                    "No"
+    IDCLOSE                 "Close"
+END
+
+#endif    // Czech resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_DOMICONS            BITMAP                  "res\\domicons.bmp"
+IDB_MSDEV_TAB_ICONS     BITMAP                  "res\\msdev_tab_icons.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_OPTIONPAGE_SEARCH DIALOGEX 0, 0, 221, 172
+STYLE DS_SETFONT | DS_CONTROL | WS_CHILD | WS_CAPTION
+CAPTION "Search"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    GROUPBOX        "freedb Searches on these fields",IDC_STATIC,7,7,207,54
+    GROUPBOX        "Fine tuning Processing on these fields",IDC_STATIC,7,68,207,56
+    CONTROL         "Artist",IDC_CHECK_SEARCH_ARTIST,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,20,31,10
+    CONTROL         "Album Title",IDC_CHECK_SEARCH_TITLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,42,51,10
+    CONTROL         "Artist",IDC_CHECK_EXCLUDE_ARTIST,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,82,37,10
+    CONTROL         "Album Title",IDC_CHECK_EXCLUDE_TITLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,105,51,10
+    EDITTEXT        IDC_EDIT_ARTIST_THRESHOLD,77,82,18,12,ES_AUTOHSCROLL | ES_NUMBER,WS_EX_RIGHT
+    LTEXT           "[%]  Matching Threshold",IDC_STATIC,97,83,77,8
+    EDITTEXT        IDC_EDIT_TITLE_THRESHOLD,77,104,18,12,ES_AUTOHSCROLL | ES_NUMBER,WS_EX_RIGHT
+    LTEXT           "[%]  Matching Threshold",IDC_STATIC,97,105,77,8
+    GROUPBOX        "Results",IDC_STATIC,7,131,207,34
+    CONTROL         "Do not show results under [%]",IDC_CHECK_LIMITRESULTS,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,145,109,10
+    EDITTEXT        IDC_EDIT_LIMITRESULTS_THRESHOLD,125,144,18,12,ES_AUTOHSCROLL | ES_NUMBER,WS_EX_RIGHT
+END
+
+IDD_OPTIONPAGE_GENERAL DIALOG  0, 0, 222, 175
+STYLE DS_SETFONT | DS_CONTROL | WS_CHILD | WS_CAPTION
+CAPTION "General"
+FONT 8, "MS Sans Serif"
+BEGIN
+    GROUPBOX        "User interface",IDC_STATIC,7,7,207,30
+    CONTROL         "Disable Message Boxes",IDC_CHECK_DISABLEMSGBOX,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,20,91,10
+    GROUPBOX        "Cue Sheet",IDC_STATIC,7,45,207,120
+    CONTROL         "Backup cue sheet file on write",IDC_CHECK_BACKUPCUESHEET,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,58,111,10
+    CONTROL         "Update Artist and Title from search results selection",IDC_CHECK_NAMESFROMFREEDB,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,74,177,10
+    GROUPBOX        "Extract Names from",IDC_STATIC,16,90,105,67
+    CONTROL         "Cue Sheet File Name",IDC_RADIO_NAMES_1,"Button",BS_AUTORADIOBUTTON | WS_GROUP,24,104,83,10
+    CONTROL         "Audio File Name",IDC_RADIO_NAMES_2,"Button",BS_AUTORADIOBUTTON,24,118,67,10
+    CONTROL         "Cue Sheet Fields",IDC_RADIO_NAMES_3,"Button",BS_AUTORADIOBUTTON,24,130,69,10
+    CONTROL         "Text Fields",IDC_RADIO_NAMES_4,"Button",BS_AUTORADIOBUTTON,24,144,50,10
+END
+
+IDD_OPTIONPAGE_FREEDB DIALOG  0, 0, 221, 142
+STYLE DS_SETFONT | DS_CONTROL | WS_CHILD | WS_CAPTION
+CAPTION "freedb"
+FONT 8, "MS Sans Serif"
+BEGIN
+    EDITTEXT        IDC_EDIT_FREEDBSERVER,7,31,86,13,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_SEARCHSERVER,7,66,86,13,ES_AUTOHSCROLL
+    GROUPBOX        " ",IDC_STATIC,106,21,108,107
+    CONTROL         "Use Proxy",IDC_CHECK_USEPROXY,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,113,19,45,11
+    EDITTEXT        IDC_EDIT_HOST,115,43,61,13,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_PORT,176,43,27,13,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_USERNAME,115,74,88,13,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_PASSWORD,115,104,88,13,ES_AUTOHSCROLL
+    LTEXT           "freedb Server",IDC_STATIC,7,20,44,10
+    LTEXT           "Search Server",IDC_STATIC,7,56,46,8
+    LTEXT           "Host                       Port",IDC_STATIC,115,34,88,9,SS_SUNKEN
+    LTEXT           "Username",IDC_STATIC,115,64,88,9,SS_SUNKEN
+    LTEXT           "Password",IDC_STATIC,115,94,88,9,SS_SUNKEN
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_OPTIONPAGE_SEARCH, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 214
+        VERTGUIDE, 16
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 165
+    END
+
+    IDD_OPTIONPAGE_GENERAL, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 215
+        VERTGUIDE, 16
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 168
+    END
+
+    IDD_OPTIONPAGE_FREEDB, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 214
+        TOPMARGIN, 6
+        BOTTOMMARGIN, 135
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_OPTIONSHEET         ICON                    "res\\CueSheetNamer.ico"
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.K.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENG)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_UK
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_LISTITEMS           BITMAP                  "res\\ListItems.bmp"
+IDB_EXAMPLE             BITMAP                  "res\\ExampleItems.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Cursor
+//
+
+IDC_HYPERLINK           CURSOR                  "res\\hand.cur"
+IDC_DIVIDER             CURSOR                  "res\\divider.cur"
+#endif    // English (U.K.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+1 TYPELIB "Upgradr.tlb"
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
+
+
+
+
+
+
+
+
+
+
+
+

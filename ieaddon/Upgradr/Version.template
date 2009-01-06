@@ -1,0 +1,10 @@
+#ifndef __WCREVISION_H
+#define __WCREVISION_H
+
+#define WC_REVISION "$WCREV$"
+#define WC_REVISION_NUMBER "$WCREV$$WCMODS?+:$"
+#define WC_REVISION_DATE "$WCDATE$"
+#define WC_REVISION_STRING "Upgradr [$WCREV$$WCMODS?+:$], ©2006 Antonin Hildebrand"
+#define WC_REPOSITORY_URL "$WCURL$"
+
+#endif //__WCREVISION_H

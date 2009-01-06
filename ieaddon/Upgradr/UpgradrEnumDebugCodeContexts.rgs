@@ -1,0 +1,27 @@
+HKCR
+{
+	Upgradr.UpgradrEnumDebugCod.1 = s 'UpgradrEnumDebugCodeContexts Class'
+	{
+		CLSID = s '{C26C171A-CA2C-4BE5-B43A-A70E9B296334}'
+	}
+	Upgradr.UpgradrEnumDebugCodeC = s 'UpgradrEnumDebugCodeContexts Class'
+	{
+		CLSID = s '{C26C171A-CA2C-4BE5-B43A-A70E9B296334}'
+		CurVer = s 'Upgradr.UpgradrEnumDebugCod.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {C26C171A-CA2C-4BE5-B43A-A70E9B296334} = s 'UpgradrEnumDebugCodeContexts Class'
+		{
+			ProgID = s 'Upgradr.UpgradrEnumDebugCod.1'
+			VersionIndependentProgID = s 'Upgradr.UpgradrEnumDebugCodeC'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			val AppID = s '%APPID%'
+			'TypeLib' = s '{753A4046-6863-42AC-9C85-24468A48972C}'
+		}
+	}
+}

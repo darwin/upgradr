@@ -1,0 +1,27 @@
+HKCR
+{
+	Upgradr.UpgradrShell.1 = s 'Upgradr Shell'
+	{
+		CLSID = s '{E35AC869-7A91-4CCE-A5E0-C5E96998DC48}'
+	}
+	Upgradr.UpgradrShell = s 'Upgradr Shell'
+	{
+		CLSID = s '{E35AC869-7A91-4CCE-A5E0-C5E96998DC48}'
+		CurVer = s 'Upgradr.UpgradrShell.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {E35AC869-7A91-4CCE-A5E0-C5E96998DC48} = s 'Upgradr Shell'
+		{
+			ProgID = s 'Upgradr.UpgradrShell.1'
+			VersionIndependentProgID = s 'Upgradr.UpgradrShell'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			val AppID = s '%APPID%'
+			'TypeLib' = s '{753A4046-6863-42AC-9C85-24468A48972C}'
+		}
+	}
+}

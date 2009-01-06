@@ -1,0 +1,27 @@
+HKCR
+{
+	Upgradr.UpgradrDebugDocumen.1 = s 'UpgradrDebugDocumentHelper Class'
+	{
+		CLSID = s '{2CE25E32-978F-48D5-94F0-CBDC42D3B22F}'
+	}
+	Upgradr.UpgradrDebugDocumentH = s 'UpgradrDebugDocumentHelper Class'
+	{
+		CLSID = s '{2CE25E32-978F-48D5-94F0-CBDC42D3B22F}'
+		CurVer = s 'Upgradr.UpgradrDebugDocumen.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {2CE25E32-978F-48D5-94F0-CBDC42D3B22F} = s 'UpgradrDebugDocumentHelper Class'
+		{
+			ProgID = s 'Upgradr.UpgradrDebugDocumen.1'
+			VersionIndependentProgID = s 'Upgradr.UpgradrDebugDocumentH'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			val AppID = s '%APPID%'
+			'TypeLib' = s '{753A4046-6863-42AC-9C85-24468A48972C}'
+		}
+	}
+}

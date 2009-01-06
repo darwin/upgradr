@@ -1,0 +1,87 @@
+  1	// ad1ex.idl : AD2 extensions to the AD1 API
+  2 
+  3 import "ocidl.idl";
+  4 import "oleidl.idl";
+  5 
+  6 
+  7 #if 0
+  8 // a block of unused uuids, take one off the top
+  9 uuid(51973C02-CB0C-11d0-B5C9-00A0244A0E7A)
+ 10 uuid(51973C03-CB0C-11d0-B5C9-00A0244A0E7A)
+ 11 uuid(51973C04-CB0C-11d0-B5C9-00A0244A0E7A)
+ 12 uuid(51973C05-CB0C-11d0-B5C9-00A0244A0E7A)
+ 13 uuid(51973C06-CB0C-11d0-B5C9-00A0244A0E7A)
+ 14 uuid(51973C07-CB0C-11d0-B5C9-00A0244A0E7A)
+ 15 uuid(51973C08-CB0C-11d0-B5C9-00A0244A0E7A)
+ 16 uuid(51973C09-CB0C-11d0-B5C9-00A0244A0E7A)
+ 17 uuid(51973C0a-CB0C-11d0-B5C9-00A0244A0E7A)
+ 18 uuid(51973C0b-CB0C-11d0-B5C9-00A0244A0E7A)
+ 19 uuid(51973C0c-CB0C-11d0-B5C9-00A0244A0E7A)
+ 20 uuid(51973C0d-CB0C-11d0-B5C9-00A0244A0E7A)
+ 21 uuid(51973C0e-CB0C-11d0-B5C9-00A0244A0E7A)
+ 22 uuid(51973C0f-CB0C-11d0-B5C9-00A0244A0E7A)
+ 23 #endif
+ 24 
+ 25 
+ 26 interface IDebugApplicationEx;
+ 27 interface IRemoteDebugApplicationEx;
+ 28 interface IRemoteDebugApplicationThread;
+ 29 
+ 30 // IDebugApplicationEx
+ 31 //
+ 32 // Purpose:
+ 33 //
+ 34 // Implemented by: PDM
+ 35 //
+ 36 // Used by: LE
+ 37 [
+ 38         object,
+ 39         uuid(51973C00-CB0C-11d0-B5C9-00A0244A0E7A),
+ 40         pointer_default(unique)
+ 41 ]
+ 42 interface IDebugApplicationEx: IUnknown
+ 43 {
+ 44         // called on method entry
+ 45         HRESULT onCallEnter (
+ 46                 [in] DWORD dwLim);
+ 47 
+ 48         // called before making method call
+ 49         HRESULT onCallOut (
+ 50                 [in] DWORD dwLim,
+ 51                 [in] DWORD dwAddrDest);
+ 52 
+ 53                 // called after returning from method call
+ 54         HRESULT onCallReturn (
+ 55                 [in] DWORD dwLim);
+ 56 
+ 57                 // called on method exit
+ 58         HRESULT onCallExit (    
+ 59                 [in] DWORD dwLim,
+ 60                 [in] DWORD dwAddrDest);
+ 61 }
+ 62 
+ 63 // IRemoteDebugApplicationEx
+ 64 //
+ 65 // Purpose:
+ 66 //
+ 67 // Implemented by: PDM
+ 68 //
+ 69 // Used by: IDE
+ 70 [
+ 71         object,
+ 72         uuid(51973C01-CB0C-11d0-B5C9-00A0244A0E7A),
+ 73         pointer_default(unique)
+ 74 ]
+ 75 interface IRemoteDebugApplicationEx: IUnknown
+ 76 {
+ 77         HRESULT GetHostPid(
+ 78                 [out] DWORD* dwHostPid);
+ 79 
+ 80         HRESULT GetHostMachineName(
+ 81                 [out] BSTR* pbstrHostMachineName);
+ 82 
+ 83 #ifdef STEP_HACK
+ 84         HRESULT ForceStepMode(
+ 85                 [in] IRemoteDebugApplicationThread* pStepThread);
+ 86 #endif
+ 87 };
